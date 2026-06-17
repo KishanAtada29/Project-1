@@ -1,5 +1,7 @@
 def class_A():
     return 24
+    """_summary_
+    """
 def class_B():
     return 16
 def class_C():
@@ -17,6 +19,12 @@ def remaing_bits(n):
     return total_bits() - n   
 def unusable_IPs():
     return 2
+def octect_value():
+    return sum(prefix_bits())
+def usable_ip(num):
+    num = total_bits() - num
+    num = (unusable_IPs() ** num) - unusable_IPs()
+    return num
 def prefix():
     subnetmasks = {
        'class A':{
@@ -46,11 +54,37 @@ def prefix():
 
 def manual():
     cidr = int(input('Please enter CIDR (0-32): '))
-    subnetmask = ''
-    prefixList = prefix_bits()
-    usableIPs = ((2 ** remaing_bits(cidr)) - unusable_IPs())
+    while cidr > 32 or cidr < 0:
+        print('Error')
+        cidr = int(input('Please enter CIDR (0-32): '))
+    octect = 0
+    subnetmask = []
+    if cidr == 0:
+        subnetmask = [0,0,0,0]
+        print(subnetmask)
+    else:
+        octet_side = cidr % single_octet_bits()
+        each_octet = int(cidr / 8)
+        for bit in range(each_octet):
+            subnetmask.append(sum(prefix_bits()))
+        for bit in range(octet_side):
+            octect = prefix_bits()[bit] + octect
+        subnetmask.append(octect)
+        if len(subnetmask) == 4:
+            print(subnetmask)
+        elif len(subnetmask) >= 3:
+            subnetmask.append(0)
+            print(subnetmask)
+        elif len(subnetmask) >= 2:
+            subnetmask.append(0)
+            subnetmask.append(0)
+            print(subnetmask)
     print(f'CIDR: /{cidr}')
-    print(f'Number of usbale IPs: {usableIPs}')
+    print(f'Nuber of useable host: {usable_ip(cidr)}')
+    print(f'Subnetmask: {subnetmask}')
+
+        
+
         
         
 

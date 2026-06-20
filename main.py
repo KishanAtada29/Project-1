@@ -1,55 +1,6 @@
-def class_A():
-    return 24
-def class_B():
-    return 16
-def class_C():
-    return 8
-def prefix_bits():
-    numbers = [128, 64, 32, 16, 8, 4, 2, 1]
-    return numbers
-def single_octet_bits():
-    return 8
-def number_of_octets():
-    return 4
-def total_bits():
-    return (single_octet_bits() * number_of_octets())
-def remaing_bits(n):
-    return total_bits() - n   
-def unusable_IPs():
-    return 2
-def octect_value():
-    return sum(prefix_bits())
-def usable_ip(num):
-    num = total_bits() - num
-    num = (unusable_IPs() ** num) - unusable_IPs()
-    return num
-def classful_subnet():
-    classful_subnet = {
-       'class A':{
-           'CIDR': '/8',
-           'Number of usable IPs': (2**class_A()) - unusable_IPs(),
-           'Subnetmask': '255.0.0.0'
-       },
-       'class B':{
-           'CIDR': '/16',
-           'Number of usable IPs': (2**class_B()) - unusable_IPs(),
-           'Subnetmask': '255.255.0.0'
-        },
-        'class C':{
-           'CIDR': '/24',
-           'Number of usable IPs': (2**class_C()) - unusable_IPs(),
-           'Subnetmask': '255.255.255.0'
-        }
 
-    }
-
-    for subnetmask, value in classful_subnet.items():
-        print('')
-        print(subnetmask)
-        for label, information in value.items():
-            print(f'{label} : {information}')
-
-        print('------------------------') 
+import functions as f
+import classful_subnet_info as csi
 
 def manual():
     print('')
@@ -63,15 +14,15 @@ def manual():
         subnetmask = [0,0,0,0]
         print('')
         print(f'Address: {".".join(map(str,(subnetmask)))} /{cidr}')
-        print(f'Total IPv4 Address: {usable_ip(cidr) + unusable_IPs()} ')
+        print(f'Total IPv4 Address: {f.usable_ip(cidr) + f.unusable_IPs()} ')
         print('Description: /0 represents all IPv4 address and is commonly used as a default route')
     else:
-        octet_side = cidr % single_octet_bits()
+        octet_side = cidr % f.single_octet_bits()
         each_octet = int(cidr / 8)
         for bit in range(each_octet):
-            subnetmask.append(sum(prefix_bits()))
+            subnetmask.append(sum(f.prefix_bits()))
         for bit in range(octet_side):
-            octect = prefix_bits()[bit] + octect
+            octect = f.prefix_bits()[bit] + octect
         subnetmask.append(octect)
         if len(subnetmask) == 3:
             subnetmask.append(0)
@@ -87,7 +38,7 @@ def manual():
 
 
         print(f'CIDR: /{cidr}')
-        print(f'Nuber of useable host: {usable_ip(cidr)}')
+        print(f'Nuber of useable host: {f.usable_ip(cidr)}')
         print(f'Subnetmask: {".".join(map(str,(subnetmask)))}')
 
         
@@ -120,7 +71,7 @@ while True:
 
 
     if user_choice == 1:
-        classful_subnet()
+        csi.classful_subnet()
     elif user_choice == 2:
         manual()
         

@@ -36,8 +36,8 @@ def class_C():
     return host_portion, network_portion
 
 # In a subnet mask, 1 represensts the network portion and 0 represents the host portion
-# class_x [0] = contain host bits
-# class_x [1] = contain network bits
+# class_x [0] = host side
+# class_x [1] = network side  
 
 def classful_subnet():
     """

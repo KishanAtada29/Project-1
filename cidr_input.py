@@ -17,7 +17,7 @@ def cidr_calculator():
 
 
     print('')
-    f.result(cidr, cd.cidr_desc(cidr))
+    f.get_result(cidr, cd.cidr_desc(cidr))
    
    
 

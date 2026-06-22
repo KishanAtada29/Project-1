@@ -19,6 +19,7 @@ while True:
         print('Invalid option...')
         print('')
         f.display_menu()
+        print('')
         user_choice = int(input('Please Enter One of the Choice (1-3): '))
 
     
@@ -31,7 +32,9 @@ while True:
         ci.cidr_calculator()
         
     elif user_choice == 3:
+        print('')
         print('Goodbye !')
+        print('')
         break
     print('')
     input('Press Enter to continue...')
